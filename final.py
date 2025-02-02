@@ -5,23 +5,18 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# ----------------------
 # 1. App Configuration
-# ----------------------
+
 st.set_page_config(
     page_title="COVID Bayes & Data Analysis",
     page_icon="📊",
     layout="centered"
 )
 
-# ----------------------
 # 2. Multi-page Setup
-# ----------------------
 page = st.sidebar.radio("Navigate to", ["COVID Bayes Calculator", "Data Analysis"])
 
-# ----------------------
 # COVID Bayes Calculator Page
-# ----------------------
 if page == "COVID Bayes Calculator":
     st.title("🦠 COVID-19 Testing: Bayes' Theorem Calculator")
     
@@ -58,19 +53,15 @@ if page == "COVID Bayes Calculator":
         y=specificity_grid[:,0],
         z=posterior_grid,
         colorscale='Viridis',
-        contours=dict(showlabels=True)
-    ))
+        contours=dict(showlabels=True)))
     fig.update_layout(
         title="Posterior Probability Landscape",
         xaxis_title="Sensitivity",
         yaxis_title="Specificity",
-        height=600
-    )
+        height=600)
     st.plotly_chart(fig, use_container_width=True)
 
-# ----------------------
 # Data Analysis Page
-# ----------------------
 else:
     st.title("📈 Data Analysis Dashboard")
     
@@ -91,7 +82,6 @@ else:
             # Analysis section
             st.subheader("Data Exploration")
             col1, col2 = st.columns(2)
-            
             with col1:
                 x_col = st.selectbox("X-axis Variable", df.columns)
             with col2:
@@ -99,14 +89,12 @@ else:
 
             # Plot selection
             plot_type = st.radio("Visualization Type", ["Scatter Plot", "Histogram", "Box Plot"])
-            
             if plot_type == "Scatter Plot":
                 fig = px.scatter(df, x=x_col, y=y_col)
             elif plot_type == "Histogram":
                 fig = px.histogram(df, x=x_col)
             else:
                 fig = px.box(df, x=x_col, y=y_col if y_col != x_col else None)
-
             st.plotly_chart(fig)
             
         except Exception as e:
