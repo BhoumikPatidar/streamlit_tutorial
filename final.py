@@ -78,7 +78,6 @@ else:
     with st.sidebar:
         st.header("Data Controls")
         uploaded_file = st.file_uploader("Upload Dataset (CSV)", type=["csv"])
-        analysis_type = st.selectbox("Analysis Mode", ["Exploratory", "Statistical"])
 
     if uploaded_file:
         try:
